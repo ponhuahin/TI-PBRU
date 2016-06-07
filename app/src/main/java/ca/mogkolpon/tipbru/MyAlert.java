@@ -13,6 +13,7 @@ public class MyAlert {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);  //ถ้าป็อปอัพขึ้นไม่ให้กดกลับได้
         builder.setIcon(R.drawable.nobita48);  //ใส่ภาพที่ต้องการแจ้งเตือน
+        //builder.setIcon(R.drawable.skull);
         builder.setTitle(strTitle);
         builder.setMessage(strMessage);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
