@@ -17,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
         myManage = new MyManage(this);
 
+        //Test Add New User  ทดสอบ
+        //myManage.addNewUser("123","name","sur","user","pass");
+
+
     } // Main Method
 
     public void clickSignUpMain(View view) {  // View view คือ ให้ฝัง หน้าออกแบบเห็น
