@@ -10,6 +10,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Explicit
     private MyManage myManage;
+    private static final String urlJSON="http://swiftcodingthai.com/pbru2/get_user_master.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     } // Main Method
+
+
 
     private void deleteAllSQLite() { //ลบฐานข้อมูลทั่งหมด
 
