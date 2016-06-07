@@ -1,10 +1,18 @@
 package ca.mogkolpon.tipbru;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,9 +34,67 @@ public class MainActivity extends AppCompatActivity {
         //Delete All SQLite
         deleteAllSQLite();
 
+        mySynJSIN();
+
 
     } // Main Method
 
+    private void mySynJSIN() {
+        ConnectedUserTABLE connectedUserTABLE=new ConnectedUserTABLE(this);
+        connectedUserTABLE.execute();
+    }
+
+    private class ConnectedUserTABLE extends AsyncTask<Void, Void, String> {
+
+        private Context context;
+        private ProgressDialog progressDialog;
+
+
+        public ConnectedUserTABLE(Context context) {
+            this.context = context;
+        } //Constructor
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+             progressDialog = ProgressDialog.show(context, "Synchronize Server",
+                     "Please Wait ... Process Synchronize");
+        }  //onPre
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request.Builder builder=new Request.Builder();
+                Request request = builder.url(urlJSON).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return  response.body().string();
+
+            } catch (Exception e) {
+                Log.d("7June", "error DoIn ==>" + e.toString());
+                return null;
+            }
+
+
+        } //doInBack
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                progressDialog.dismiss();
+                Log.d("7June", "JSON ==>" + s);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } //onPost
+
+
+    } //Connceted Class
 
 
     private void deleteAllSQLite() { //ลบฐานข้อมูลทั่งหมด
